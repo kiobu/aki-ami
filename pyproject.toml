@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "aki-ami"
+version = "0.1.0"
+description = ""
+authors = ["kiobu <kiobu@sdf.org>"]
+readme = "README.md"
+packages = [{include = "aki_ami"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyqt5 = "^5.15.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
