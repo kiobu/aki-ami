@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "mods": [
+            {
+                "type": "client",
+                "path_to_root": "/clientmod/"
+            },
+            {
+                "type": "server",
+                "path_to_root": "/servermod/"
+            }
+        ]
+    }
+}
