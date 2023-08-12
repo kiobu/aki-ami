@@ -3,8 +3,8 @@ import shutil
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from config_manager import ConfigManager
-from mod_metadata_parser import *
+from src.config_manager import ConfigManager
+from src.mod_metadata_parser import *
 from typing import Literal, Union
 import sys
 
@@ -54,7 +54,7 @@ class ModInstallWindow(QMainWindow):
 
         if 'metadata.ami' not in self.args[0]:
             self.create_boot_error_label(
-                "The given file does not seem to be a metadata.ami file."
+                f"The given file does not seem to be a metadata.ami file.\n{self.args}"
             )
             print("arg: " + self.args[0])
             return True
@@ -102,32 +102,36 @@ class ModInstallWindow(QMainWindow):
 
                     try:
                         src = ami.mod_dir + mod['path_to_root']
-                        dst = self.config_manager.server_path + "/users/mods" + mod['path_to_root']
+
+                        # /aki-dir/Server/user/mods/
+                        dst = self.config_manager.server_path + "/user/mods" + mod['path_to_root']
 
                         print("src: " + src)
                         print("dst: " + dst)
 
-                        shutil.copytree(src, dst)
+                        shutil.copytree(src, dst, dirs_exist_ok=True)
 
                         self.create_mod_label(f"SUCCESS: {mod_name}", idx, 'green')
-                    except Exception:
-                        self.create_mod_label(f"FAILED: {mod_name}", idx, 'red')
+                    except Exception as ex:
+                        self.create_mod_label(f"FAILED: {mod_name} - {str(ex)}", idx, 'red')
 
                 # Move client mod.
                 else:
                     # TODO: Grab .dll names recursively to display in AMI window.
                     try:
                         src = ami.mod_dir + mod['path_to_root']
-                        dst = self.config_manager.client_path + "/BepInEx/"
+
+                        # /aki-dir/Client/
+                        dst = self.config_manager.client_path + "/"
 
                         print("src: " + src)
                         print("dst: " + dst)
 
-                        shutil.copytree(src, dst)
+                        shutil.copytree(src, dst, dirs_exist_ok=True)
 
                         self.create_mod_label(f"SUCCESS: {mod_name}", idx, 'green')
-                    except Exception:
-                        self.create_mod_label(f"FAILED: {mod_name}", idx, 'red')
+                    except Exception as ex:
+                        self.create_mod_label(f"FAILED: {mod_name} - {str(ex)}", idx, 'red')
 
 
         done_label = QLabel("DONE!", self)

@@ -7,10 +7,13 @@ readme = "README.md"
 packages = [{include = "aki_ami"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.10"
 pyqt5 = "^5.15.9"
+pyinstaller = "^5.13.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# "poetry run pyinstaller --onefile src/app.py --collect-submodules application --name aki-ami"

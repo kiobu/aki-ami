@@ -1,13 +1,20 @@
 import json
 import os
+import sys
 
 
 class ConfigManager:
-    config_path: str = os.path.dirname(os.path.realpath(__file__)) + "/config.json"
+    config_path: str
     server_path: str
     client_path: str
 
     def __init__(self):
+
+        if getattr(sys, 'frozen', False):
+            self.config_path = os.path.dirname(os.path.abspath(sys.executable)) + "/config.json"
+        elif __file__:
+            self.config_path = os.path.dirname(os.path.abspath(__file__)) + "/config.json"
+
         self._read_config()
 
     def _read_config(self) -> tuple[str, str]:

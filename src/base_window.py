@@ -2,7 +2,7 @@ import os.path
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from config_manager import ConfigManager
+from src.config_manager import ConfigManager
 import sys
 
 

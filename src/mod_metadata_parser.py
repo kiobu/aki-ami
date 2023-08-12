@@ -9,7 +9,8 @@ class MetadataParser:
     def __init__(self, metadata_path: str):
         with open(metadata_path, 'r') as metadata:
             self.raw_metadata = json.load(metadata)
-            self.mod_dir = os.path.dirname(os.path.realpath(metadata_path))
+            self.mod_dir = os.path.dirname(os.path.abspath(metadata_path))
+            print("mod_dir: " + self.mod_dir)
 
             # Do AMI metadata validations.
             self.validate_ami_format()
